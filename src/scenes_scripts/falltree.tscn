@@ -1,9 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://dr6cg0e2dyoek"]
+[gd_scene load_steps=11 format=3 uid="uid://dr6cg0e2dyoek"]
 
 [ext_resource type="Texture2D" uid="uid://d2p5dv66hjjt2" path="res://assets/tree1.tres" id="1_4u5mn"]
-[ext_resource type="Texture2D" uid="uid://dbxbcrcqaqymd" path="res://assets/pile.tres" id="2_puh36"]
+[ext_resource type="Texture2D" uid="uid://dbxbcrcqaqymd" path="res://assets/pile0.tres" id="2_puh36"]
 [ext_resource type="Script" uid="uid://ddvoedw38pbds" path="res://src/scenes_scripts/FallTree.gd" id="2_ronpq"]
 [ext_resource type="Texture2D" uid="uid://2wht4b3bl3pj" path="res://assets/leaf.tres" id="3_85mx4"]
+[ext_resource type="Texture2D" uid="uid://bvqoe034fq3ye" path="res://assets/pile1.tres" id="5_w53m2"]
+[ext_resource type="Texture2D" uid="uid://bg471wtgpu5ow" path="res://assets/pile2.tres" id="6_pd3t2"]
+[ext_resource type="Texture2D" uid="uid://c2cxnn0rl5y71" path="res://assets/pile3.tres" id="7_r0rwh"]
+[ext_resource type="Texture2D" uid="uid://cncbmag4j43bi" path="res://assets/pile4.tres" id="8_x7jtb"]
 
 [sub_resource type="Gradient" id="Gradient_ne0no"]
 offsets = PackedFloat32Array(0, 0.886667, 1)
@@ -35,32 +39,24 @@ color_initial_ramp = SubResource("Gradient_ne0no")
 [node name="PileParent" type="Node2D" parent="."]
 position = Vector2(62, 151)
 
-[node name="Sprite2D4" type="Sprite2D" parent="PileParent"]
-modulate = Color(1, 1, 1, 0.623529)
+[node name="Sprite0" type="Sprite2D" parent="PileParent"]
 texture = ExtResource("2_puh36")
 
-[node name="Sprite2D5" type="Sprite2D" parent="PileParent"]
-modulate = Color(1, 1, 1, 0.623529)
+[node name="Sprite1" type="Sprite2D" parent="PileParent"]
 position = Vector2(-60, 6)
-texture = ExtResource("2_puh36")
+texture = ExtResource("5_w53m2")
 
 [node name="Sprite2D" type="Sprite2D" parent="PileParent"]
-visible = false
-modulate = Color(1, 1, 1, 0.623529)
 position = Vector2(-41, -46)
-texture = ExtResource("2_puh36")
+texture = ExtResource("6_pd3t2")
 
-[node name="Sprite2D2" type="Sprite2D" parent="PileParent"]
-visible = false
-modulate = Color(1, 1, 1, 0.623529)
+[node name="Sprite3" type="Sprite2D" parent="PileParent"]
 position = Vector2(12, -32)
-texture = ExtResource("2_puh36")
+texture = ExtResource("7_r0rwh")
 
-[node name="Sprite2D3" type="Sprite2D" parent="PileParent"]
-visible = false
-modulate = Color(1, 1, 1, 0.623529)
+[node name="Sprite4" type="Sprite2D" parent="PileParent"]
 position = Vector2(-84, -24)
-texture = ExtResource("2_puh36")
+texture = ExtResource("8_x7jtb")
 
 [node name="LeafPileStaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(0, 124)

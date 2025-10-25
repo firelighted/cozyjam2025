@@ -25,6 +25,8 @@ window/size/resizable=false
 
 2d_physics/layer_2="Collectible"
 2d_physics/layer_3="PlayerDetect"
+2d_physics/layer_4="turkey"
+2d_physics/layer_5="playerturkeydetect"
 
 [rendering]
 

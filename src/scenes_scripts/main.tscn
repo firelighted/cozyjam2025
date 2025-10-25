@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c4hph8pvvd547"]
+[gd_scene load_steps=27 format=3 uid="uid://c4hph8pvvd547"]
 
 [ext_resource type="Script" uid="uid://cqhx7autm2quy" path="res://src/scenes_scripts/main.gd" id="1_8bppn"]
 [ext_resource type="Script" uid="uid://cl1n471ie3nkm" path="res://src/scenes_scripts/player2d.gd" id="1_cydo6"]
@@ -10,15 +10,26 @@
 [ext_resource type="AudioStream" uid="uid://bcdl2uxmif17b" path="res://assets/sfx/walking-on-dry-leaves-361514.mp3" id="5_3cxgn"]
 [ext_resource type="AudioStream" uid="uid://jr8e48mgfra6" path="res://assets/sfx/whoosh-effect-405447.mp3" id="6_8ksqs"]
 [ext_resource type="Texture2D" uid="uid://ferav2ri8itn" path="res://assets/player.tres" id="8_8bppn"]
+[ext_resource type="Script" uid="uid://cjxjdoc7teg7j" path="res://src/scenes_scripts/turkey.gd" id="11_73g7s"]
+[ext_resource type="Texture2D" uid="uid://bqrjnnoe8lspx" path="res://assets/turkey1.tres" id="12_guj35"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ne0no"]
+size = Vector2(3587.75, 71.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_73g7s"]
+size = Vector2(165, 393)
 
 [sub_resource type="Gradient" id="Gradient_icmaw"]
-colors = PackedColorArray(0.0862745, 0.101961, 0.152941, 1, 0.0862745, 0.101961, 0.152941, 1)
+colors = PackedColorArray(0.607843, 0.678431, 0.717647, 1, 0.607843, 0.678431, 0.717647, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_rvmg3"]
 gradient = SubResource("Gradient_icmaw")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ne0no"]
-size = Vector2(3249, 71.5)
+[sub_resource type="Gradient" id="Gradient_1dgxd"]
+colors = PackedColorArray(0.0862745, 0.101961, 0.152941, 1, 0.0862745, 0.101961, 0.152941, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wjbgh"]
+gradient = SubResource("Gradient_1dgxd")
 
 [sub_resource type="Gradient" id="Gradient_8ksqs"]
 colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1)
@@ -67,6 +78,11 @@ _data = {
 &"jump": SubResource("Animation_1dgxd")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_73g7s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d8l4k"]
+radius = 28.0179
+
 [node name="Main" type="Node"]
 script = ExtResource("1_8bppn")
 
@@ -76,18 +92,21 @@ position = Vector2(0, 700)
 
 [node name="GroundStaticBody2D" type="StaticBody2D" parent="Background"]
 
-[node name="RoadSprite" type="Sprite2D" parent="Background/GroundStaticBody2D"]
-position = Vector2(740, 103)
-scale = Vector2(29.25, 7.03828)
-texture = SubResource("GradientTexture2D_rvmg3")
-
 [node name="GroundCollisionShape2D" type="CollisionShape2D" parent="Background/GroundStaticBody2D"]
-position = Vector2(1425, 34)
+position = Vector2(1603, 106)
 shape = SubResource("RectangleShape2D_ne0no")
 
 [node name="GroundCollisionShape2D2" type="CollisionShape2D" parent="Background/GroundStaticBody2D"]
-position = Vector2(1420, -310)
+position = Vector2(1582, -263)
 shape = SubResource("RectangleShape2D_ne0no")
+
+[node name="GroundCollisionShape2D3" type="CollisionShape2D" parent="Background/GroundStaticBody2D"]
+position = Vector2(20.5, -81)
+shape = SubResource("RectangleShape2D_73g7s")
+
+[node name="GroundCollisionShape2D4" type="CollisionShape2D" parent="Background/GroundStaticBody2D"]
+position = Vector2(3284, -70)
+shape = SubResource("RectangleShape2D_73g7s")
 
 [node name="BackgroundExtraSky" type="Sprite2D" parent="Background"]
 visible = false
@@ -99,6 +118,21 @@ offset = Vector2(1600, 100)
 position = Vector2(0, 1)
 texture = ExtResource("1_rvmg3")
 offset = Vector2(1600, 100)
+
+[node name="Sidwalk" type="Sprite2D" parent="Background"]
+position = Vector2(1566, 233)
+scale = Vector2(50.6406, 7.03828)
+texture = SubResource("GradientTexture2D_rvmg3")
+
+[node name="RoadSprite3" type="Sprite2D" parent="Background"]
+position = Vector2(1535, -180)
+scale = Vector2(45.4023, 0.32207)
+texture = SubResource("GradientTexture2D_rvmg3")
+
+[node name="RoadSprite" type="Sprite2D" parent="."]
+position = Vector2(51, 866)
+scale = Vector2(7.14063, 5.06602)
+texture = SubResource("GradientTexture2D_wjbgh")
 
 [node name="TreeParent" type="Node" parent="."]
 
@@ -223,8 +257,10 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_rvmg3")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+position = Vector2(144, 0)
 limit_left = 0
 limit_top = -170
+limit_right = 3200
 limit_bottom = 725
 position_smoothing_enabled = true
 
@@ -236,8 +272,16 @@ libraries = {
 &"": SubResource("AnimationLibrary_73g7s")
 }
 
-[node name="AnimationTree" type="AnimationTree" parent="CharacterBody2D"]
-anim_player = NodePath("../AnimationPlayer")
+[node name="TurkeySFX" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
+position = Vector2(-174, 111)
+stream = ExtResource("6_8ksqs")
+
+[node name="TurkeyDetect" type="Area2D" parent="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/TurkeyDetect"]
+shape = SubResource("CircleShape2D_73g7s")
 
 [node name="BackgroundAudio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_ne0no")
@@ -265,12 +309,26 @@ Sound Effect by Martsfx,  DRAGON-STUDIO from Pixabay"
 [node name="Control" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="Control"]
-offset_left = 546.0
+offset_left = 555.0
 offset_top = 9.0
-offset_right = 670.0
+offset_right = 679.0
 offset_bottom = 58.0
 text = "#/10 piles raked
 #/3 items found"
 
+[node name="Turkey" type="Area2D" parent="."]
+position = Vector2(739, 617)
+collision_layer = 8
+collision_mask = 17
+script = ExtResource("11_73g7s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Turkey"]
+shape = SubResource("CircleShape2D_d8l4k")
+
+[node name="Sprite2D" type="Sprite2D" parent="Turkey"]
+texture = ExtResource("12_guj35")
+
 [connection signal="body_entered" from="CharacterBody2D/PlayerDetect" to="CharacterBody2D" method="_on_player_detect_body_entered"]
 [connection signal="timeout" from="CharacterBody2D/FinishPileTimer" to="CharacterBody2D" method="_on_finish_pile_timer_timeout"]
+[connection signal="area_entered" from="CharacterBody2D/TurkeyDetect" to="CharacterBody2D" method="_on_turkey_detect_area_entered"]
+[connection signal="area_entered" from="Turkey" to="." method="_on_turkey_area_entered"]

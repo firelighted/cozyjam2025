@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1noiansgr6sn"]
+
+[ext_resource type="Script" uid="uid://cjxjdoc7teg7j" path="res://src/scenes_scripts/turkey.gd" id="1_ov6gb"]
+[ext_resource type="Texture2D" uid="uid://bqrjnnoe8lspx" path="res://assets/turkey1.tres" id="2_3e1ks"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d8l4k"]
+radius = 28.0179
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ov6gb"]
+
+[node name="Turkey" type="CharacterBody2D"]
+script = ExtResource("1_ov6gb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_3e1ks")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="Turkey" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Turkey"]
+shape = SubResource("CircleShape2D_d8l4k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ov6gb")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="Turkey" to="." method="_on_turkey_area_entered"]

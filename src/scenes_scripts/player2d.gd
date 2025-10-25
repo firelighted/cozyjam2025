@@ -19,7 +19,6 @@ const MAX_LEAVES_BLOWN = 150
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 var piles_found = 0
-const piles_found_total = 10
 var special_items_found = 0
 const special_items_total = 3
 
@@ -50,7 +49,7 @@ func _ready() -> void:
 	#move_and_slide()
 		#
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var direction_topdown = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	velocity = direction_topdown * SPEED
 	
@@ -64,12 +63,11 @@ func _physics_process(delta):
 	
 	move_and_slide()
 	
-	var direction = direction_topdown.x
+	var direction = round(direction_topdown.x)
 	
 	leafblow.orbit_velocity_max = direction + 1
 	leafblow.orbit_velocity_min = direction
 	leafblow.direction.x = direction
-	leafblow.emitting = (direction != 0)
 	footstep_audio.stream_paused = (direction_topdown.length_squared() == 0) or not is_on_floor()
 	leafblow.position = position + Vector2(32 * direction, -32)
 	if direction != 0:
@@ -79,13 +77,18 @@ func _physics_process(delta):
 func _on_player_detect_body_entered(body: Node2D) -> void:
 	print("collectible found")
 	piles_found += 1
-	hud_label.text = "%d/%d piles raked
-	%d/%d items found" % [piles_found, piles_found_total, special_items_found, special_items_total]
+	hud_label.text = "%d piles cleared
+	%d/%d items found" % [piles_found, special_items_found, special_items_total]
 	body.get_parent().collect()
 	leafblow.amount = MAX_LEAVES_BLOWN
 	pile_audio.play()
 
 func _on_finish_pile_timer_timeout() -> void:
 	# runs repeatedly and automatically
-	if leafblow.amount > MIN_LEAVES_BLOWN:
-		leafblow.amount -= 10
+	#if leafblow.amount > MIN_LEAVES_BLOWN:
+	#	leafblow.amount -= 10
+	pass
+
+
+func _on_turkey_detect_area_entered(area: Area2D) -> void:
+	$TurkeySFX.play()
