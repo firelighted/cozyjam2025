@@ -53,6 +53,8 @@ func _physics_process(delta: float) -> void:
 	leafblow.emitting = (direction != 0)
 	footstep_audio.stream_paused = (direction == 0) or not is_on_floor()
 	leafblow.position = position + Vector2(32 * direction, -32)
+	if direction != 0:
+		$CharSprite.scale = Vector2(direction, 1)
 	move_and_slide()
 
 

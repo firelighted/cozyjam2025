@@ -1,115 +1,129 @@
 [gd_scene load_steps=17 format=3 uid="uid://c4hph8pvvd547"]
 
+[ext_resource type="Script" uid="uid://cqhx7autm2quy" path="res://src/scenes_scripts/main.gd" id="1_8bppn"]
 [ext_resource type="Script" uid="uid://cl1n471ie3nkm" path="res://src/scenes_scripts/player2d.gd" id="1_cydo6"]
-[ext_resource type="Texture2D" uid="uid://f3l7j646b26n" path="res://icon.svg" id="1_jgk43"]
 [ext_resource type="Texture2D" uid="uid://kekbajck4uv2" path="res://assets/spritesheet.png" id="1_rvmg3"]
+[ext_resource type="PackedScene" uid="uid://dr6cg0e2dyoek" path="res://src/scenes_scripts/falltree.tscn" id="3_1dgxd"]
 [ext_resource type="AudioStream" uid="uid://bsv4dd20fd7k" path="res://src/audio/Adding the Sun.mp3" id="3_ne0no"]
 [ext_resource type="PackedScene" uid="uid://ik5klehl7a0u" path="res://src/scenes_scripts/leafblow_particles.tscn" id="4_agtjx"]
+[ext_resource type="Texture2D" uid="uid://2wht4b3bl3pj" path="res://assets/leaf.tres" id="5_1dgxd"]
 [ext_resource type="AudioStream" uid="uid://bcdl2uxmif17b" path="res://assets/sfx/walking-on-dry-leaves-361514.mp3" id="5_3cxgn"]
-[ext_resource type="Texture2D" uid="uid://d2p5dv66hjjt2" path="res://assets/tree1.tres" id="5_agtjx"]
 [ext_resource type="AudioStream" uid="uid://jr8e48mgfra6" path="res://assets/sfx/whoosh-effect-405447.mp3" id="6_8ksqs"]
-
-[sub_resource type="Gradient" id="Gradient_ne0no"]
-offsets = PackedFloat32Array(0, 0.886667, 1)
-colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_agtjx"]
-size = Vector2(90, 53.5)
+[ext_resource type="Texture2D" uid="uid://ferav2ri8itn" path="res://assets/player.tres" id="8_8bppn"]
 
 [sub_resource type="Gradient" id="Gradient_icmaw"]
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+colors = PackedColorArray(0.0862745, 0.101961, 0.152941, 1, 0.0862745, 0.101961, 0.152941, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_rvmg3"]
 gradient = SubResource("Gradient_icmaw")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ne0no"]
-size = Vector2(698, 71.5)
+size = Vector2(3249, 71.5)
 
 [sub_resource type="Gradient" id="Gradient_8ksqs"]
 colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cydo6"]
 radius = 18.0
-height = 56.0
+height = 100.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rvmg3"]
-radius = 31.5753
+radius = 60.0
 
 [node name="Main" type="Node"]
-
-[node name="Label" type="Label" parent="."]
-offset_left = 546.0
-offset_top = 9.0
-offset_right = 670.0
-offset_bottom = 58.0
-text = "#/10 piles raked
-#/3 items found"
+script = ExtResource("1_8bppn")
 
 [node name="Background" type="Node2D" parent="."]
+z_index = -200
+position = Vector2(0, 700)
 
-[node name="Sprite2D" type="Sprite2D" parent="Background"]
-z_index = -100
-scale = Vector2(1.2, 1.2)
-texture = ExtResource("1_rvmg3")
-offset = Vector2(0, 800)
+[node name="GroundStaticBody2D" type="StaticBody2D" parent="Background"]
 
-[node name="Tree" type="Sprite2D" parent="."]
-position = Vector2(349, 487)
-texture = ExtResource("5_agtjx")
-
-[node name="FallParticles" type="CPUParticles2D" parent="Tree"]
-position = Vector2(-2, -63)
-emission_shape = 3
-emission_rect_extents = Vector2(50, 50)
-gravity = Vector2(0, 500)
-orbit_velocity_max = 0.25
-damping_min = 15.0
-damping_max = 15.0
-scale_amount_min = 4.0
-scale_amount_max = 4.0
-color_initial_ramp = SubResource("Gradient_ne0no")
-
-[node name="LeafPileStaticBody2D" type="StaticBody2D" parent="Tree"]
-position = Vector2(1, 91)
-collision_layer = 2
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Tree/LeafPileStaticBody2D"]
-position = Vector2(9, 9)
-shape = SubResource("RectangleShape2D_agtjx")
-
-[node name="Sprite2D" type="Sprite2D" parent="Tree/LeafPileStaticBody2D"]
-modulate = Color(1, 1, 1, 0.623529)
-position = Vector2(3, 34)
-texture = ExtResource("1_jgk43")
-
-[node name="GroundStaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(167, 699)
-scale = Vector2(6, 1)
-
-[node name="RoadSprite" type="Sprite2D" parent="GroundStaticBody2D"]
-scale = Vector2(10, 1)
+[node name="RoadSprite" type="Sprite2D" parent="Background/GroundStaticBody2D"]
+position = Vector2(740, 103)
+scale = Vector2(29.25, 7.03828)
 texture = SubResource("GradientTexture2D_rvmg3")
 
-[node name="GroundCollisionShape2D" type="CollisionShape2D" parent="GroundStaticBody2D"]
-position = Vector2(0, -18.25)
-scale = Vector2(5, 1)
+[node name="GroundCollisionShape2D" type="CollisionShape2D" parent="Background/GroundStaticBody2D"]
+position = Vector2(1425, 34)
 shape = SubResource("RectangleShape2D_ne0no")
 
+[node name="BackgroundExtraSky" type="Sprite2D" parent="Background"]
+visible = false
+position = Vector2(1, -170)
+texture = ExtResource("1_rvmg3")
+offset = Vector2(1600, 100)
+
+[node name="Background" type="Sprite2D" parent="Background"]
+position = Vector2(0, 175)
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("1_rvmg3")
+offset = Vector2(1600, 100)
+
+[node name="TreeParent" type="Node" parent="."]
+
+[node name="Tree" parent="TreeParent" instance=ExtResource("3_1dgxd")]
+position = Vector2(374, 492)
+
+[node name="Tree2" parent="TreeParent" instance=ExtResource("3_1dgxd")]
+position = Vector2(573, 503)
+
+[node name="Tree3" parent="TreeParent" instance=ExtResource("3_1dgxd")]
+position = Vector2(762, 598)
+
+[node name="Tree4" parent="TreeParent" instance=ExtResource("3_1dgxd")]
+position = Vector2(1304, 548)
+
+[node name="Tree5" parent="TreeParent" instance=ExtResource("3_1dgxd")]
+position = Vector2(1397, 548)
+
+[node name="Tree6" parent="TreeParent" instance=ExtResource("3_1dgxd")]
+position = Vector2(1480, 548)
+
+[node name="Tree7" parent="TreeParent" instance=ExtResource("3_1dgxd")]
+position = Vector2(1654, 587)
+
+[node name="Tree8" parent="TreeParent" instance=ExtResource("3_1dgxd")]
+position = Vector2(1781, 543)
+
+[node name="Tree9" parent="TreeParent" instance=ExtResource("3_1dgxd")]
+position = Vector2(1011, 605)
+
+[node name="Tree10" parent="TreeParent" instance=ExtResource("3_1dgxd")]
+position = Vector2(2640, 546)
+
+[node name="Tree11" parent="TreeParent" instance=ExtResource("3_1dgxd")]
+position = Vector2(2235, 546)
+
+[node name="Tree12" parent="TreeParent" instance=ExtResource("3_1dgxd")]
+position = Vector2(1950, 551)
+
+[node name="Tree13" parent="TreeParent" instance=ExtResource("3_1dgxd")]
+position = Vector2(2482, 551)
+
+[node name="Tree14" parent="TreeParent" instance=ExtResource("3_1dgxd")]
+position = Vector2(2482, 551)
+
 [node name="LeafblowParticles" parent="." instance=ExtResource("4_agtjx")]
-position = Vector2(958, 545)
+position = Vector2(98, 586)
 amount = 24
+texture = ExtResource("5_1dgxd")
 lifetime = 3.0
 randomness = 0.0
 lifetime_randomness = 1.0
 local_coords = true
+particle_flag_align_y = false
+angular_velocity_max = 564.48
 orbit_velocity_min = 0.0
+scale_amount_min = 0.2
+scale_amount_max = 0.4
 color_initial_ramp = SubResource("Gradient_8ksqs")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 z_index = 100
-position = Vector2(926, 577)
+position = Vector2(109, 584)
 script = ExtResource("1_cydo6")
+hud_label_path = NodePath("../Control/Label")
 
 [node name="FootstepAudio" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
 position = Vector2(-372, -277)
@@ -124,8 +138,7 @@ stream = ExtResource("6_8ksqs")
 shape = SubResource("CapsuleShape2D_cydo6")
 
 [node name="CharSprite" type="Sprite2D" parent="CharacterBody2D"]
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("1_jgk43")
+texture = ExtResource("8_8bppn")
 
 [node name="PlayerDetect" type="Area2D" parent="CharacterBody2D"]
 collision_layer = 4
@@ -135,13 +148,15 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_rvmg3")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+limit_left = 0
+limit_top = -170
 limit_bottom = 725
 position_smoothing_enabled = true
 
 [node name="FinishPileTimer" type="Timer" parent="CharacterBody2D"]
 autostart = true
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="BackgroundAudio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_ne0no")
 autoplay = true
 
@@ -163,6 +178,16 @@ Art by Patrick Rall
 Code by Sarah Asano
 Music by Kevin MacLeod
 Sound Effect by Martsfx,  DRAGON-STUDIO from Pixabay"
+
+[node name="Control" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="Control"]
+offset_left = 546.0
+offset_top = 9.0
+offset_right = 670.0
+offset_bottom = 58.0
+text = "#/10 piles raked
+#/3 items found"
 
 [connection signal="body_entered" from="CharacterBody2D/PlayerDetect" to="CharacterBody2D" method="_on_player_detect_body_entered"]
 [connection signal="timeout" from="CharacterBody2D/FinishPileTimer" to="CharacterBody2D" method="_on_finish_pile_timer_timeout"]
