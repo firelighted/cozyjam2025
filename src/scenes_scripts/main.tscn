@@ -114,6 +114,7 @@ script = ExtResource("1_cydo6")
 [node name="FootstepAudio" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
 position = Vector2(-372, -277)
 stream = ExtResource("5_3cxgn")
+autoplay = true
 
 [node name="SFXAudio" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
 position = Vector2(-372, -277)

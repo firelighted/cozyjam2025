@@ -51,7 +51,7 @@ func _physics_process(delta: float) -> void:
 	leafblow.orbit_velocity_min = direction
 	leafblow.direction.x = direction
 	leafblow.emitting = (direction != 0)
-	footstep_audio.playing = (direction != 0) and is_on_floor()
+	footstep_audio.stream_paused = (direction == 0) or not is_on_floor()
 	leafblow.position = position + Vector2(32 * direction, -32)
 	move_and_slide()
 
@@ -63,6 +63,7 @@ func _on_player_detect_body_entered(body: Node2D) -> void:
 	%d/%d items found" % [piles_found, piles_found_total, special_items_found, special_items_total]
 	body.queue_free()
 	leafblow.amount = MAX_LEAVES_BLOWN
+	pile_audio.play()
 
 func _on_finish_pile_timer_timeout() -> void:
 	# runs repeatedly and automatically
