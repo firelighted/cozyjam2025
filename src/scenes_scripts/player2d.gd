@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export var hud_label_path: NodePath = "../Label"
-@export var leafblow_path: NodePath = "LeafblowParticles"
+@export var leafblow_path: NodePath = "../LeafblowParticles"
 @export var footstep_audio_path: NodePath = "FootstepAudio"
 @export var pile_audio_path: NodePath = "SFXAudio"
 #@export var leafblow : PackedScene = load("res://src/scenes_scripts/leafblow_particles.tscn")
@@ -12,6 +12,8 @@ var pile_audio : AudioStreamPlayer2D
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
+const MIN_LEAVES_BLOWN = 25
+const MAX_LEAVES_BLOWN = 150
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -45,10 +47,12 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
+	leafblow.orbit_velocity_max = direction + 1
 	leafblow.orbit_velocity_min = direction
-	leafblow.orbit_velocity_max = direction
+	leafblow.direction.x = direction
 	leafblow.emitting = (direction != 0)
 	footstep_audio.playing = (direction != 0) and is_on_floor()
+	leafblow.position = position + Vector2(32 * direction, -32)
 	move_and_slide()
 
 
@@ -58,4 +62,9 @@ func _on_player_detect_body_entered(body: Node2D) -> void:
 	hud_label.text = "%d/%d piles raked
 	%d/%d items found" % [piles_found, piles_found_total, special_items_found, special_items_total]
 	body.queue_free()
-	
+	leafblow.amount = MAX_LEAVES_BLOWN
+
+func _on_finish_pile_timer_timeout() -> void:
+	# runs repeatedly and automatically
+	if leafblow.amount > MIN_LEAVES_BLOWN:
+		leafblow.amount -= 10

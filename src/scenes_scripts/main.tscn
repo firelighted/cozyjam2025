@@ -1,10 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://c4hph8pvvd547"]
+[gd_scene load_steps=17 format=3 uid="uid://c4hph8pvvd547"]
 
 [ext_resource type="Script" uid="uid://cl1n471ie3nkm" path="res://src/scenes_scripts/player2d.gd" id="1_cydo6"]
 [ext_resource type="Texture2D" uid="uid://f3l7j646b26n" path="res://icon.svg" id="1_jgk43"]
 [ext_resource type="Texture2D" uid="uid://kekbajck4uv2" path="res://assets/spritesheet.png" id="1_rvmg3"]
 [ext_resource type="AudioStream" uid="uid://bsv4dd20fd7k" path="res://src/audio/Adding the Sun.mp3" id="3_ne0no"]
-[ext_resource type="PackedScene" uid="uid://cetsug3kt8u4o" path="res://src/scenes_scripts/leafblow_particles.tscn" id="4_agtjx"]
+[ext_resource type="PackedScene" uid="uid://ik5klehl7a0u" path="res://src/scenes_scripts/leafblow_particles.tscn" id="4_agtjx"]
 [ext_resource type="AudioStream" uid="uid://bcdl2uxmif17b" path="res://assets/sfx/walking-on-dry-leaves-361514.mp3" id="5_3cxgn"]
 [ext_resource type="Texture2D" uid="uid://d2p5dv66hjjt2" path="res://assets/tree1.tres" id="5_agtjx"]
 [ext_resource type="AudioStream" uid="uid://jr8e48mgfra6" path="res://assets/sfx/whoosh-effect-405447.mp3" id="6_8ksqs"]
@@ -14,7 +14,7 @@ offsets = PackedFloat32Array(0, 0.886667, 1)
 colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_agtjx"]
-size = Vector2(64, 27)
+size = Vector2(90, 53.5)
 
 [sub_resource type="Gradient" id="Gradient_icmaw"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -23,7 +23,10 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 gradient = SubResource("Gradient_icmaw")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ne0no"]
-size = Vector2(698, 35)
+size = Vector2(698, 71.5)
+
+[sub_resource type="Gradient" id="Gradient_8ksqs"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cydo6"]
 radius = 18.0
@@ -43,19 +46,21 @@ text = "#/10 piles raked
 #/3 items found"
 
 [node name="Background" type="Node2D" parent="."]
-position = Vector2(317.5, 353.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="Background"]
+z_index = -100
+scale = Vector2(1.2, 1.2)
 texture = ExtResource("1_rvmg3")
+offset = Vector2(0, 800)
 
 [node name="Tree" type="Sprite2D" parent="."]
-position = Vector2(132, 252)
+position = Vector2(349, 487)
 texture = ExtResource("5_agtjx")
 
 [node name="FallParticles" type="CPUParticles2D" parent="Tree"]
-position = Vector2(-2, -6)
+position = Vector2(-2, -63)
 emission_shape = 3
-emission_rect_extents = Vector2(50, 1)
+emission_rect_extents = Vector2(50, 50)
 gravity = Vector2(0, 500)
 orbit_velocity_max = 0.25
 damping_min = 15.0
@@ -65,33 +70,45 @@ scale_amount_max = 4.0
 color_initial_ramp = SubResource("Gradient_ne0no")
 
 [node name="LeafPileStaticBody2D" type="StaticBody2D" parent="Tree"]
+position = Vector2(1, 91)
 collision_layer = 2
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tree/LeafPileStaticBody2D"]
-position = Vector2(2, 35)
+position = Vector2(9, 9)
 shape = SubResource("RectangleShape2D_agtjx")
 
 [node name="Sprite2D" type="Sprite2D" parent="Tree/LeafPileStaticBody2D"]
+modulate = Color(1, 1, 1, 0.623529)
 position = Vector2(3, 34)
-scale = Vector2(0.5, 0.2)
 texture = ExtResource("1_jgk43")
 
 [node name="GroundStaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(167, 699)
 scale = Vector2(6, 1)
 
 [node name="RoadSprite" type="Sprite2D" parent="GroundStaticBody2D"]
-position = Vector2(319.5, 364.25)
 scale = Vector2(10, 1)
 texture = SubResource("GradientTexture2D_rvmg3")
 
 [node name="GroundCollisionShape2D" type="CollisionShape2D" parent="GroundStaticBody2D"]
-position = Vector2(344, 357.5)
+position = Vector2(0, -18.25)
 scale = Vector2(5, 1)
 shape = SubResource("RectangleShape2D_ne0no")
 
+[node name="LeafblowParticles" parent="." instance=ExtResource("4_agtjx")]
+position = Vector2(958, 545)
+amount = 24
+lifetime = 3.0
+randomness = 0.0
+lifetime_randomness = 1.0
+local_coords = true
+orbit_velocity_min = 0.0
+color_initial_ramp = SubResource("Gradient_8ksqs")
+
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-position = Vector2(372, 277)
+z_index = 100
+position = Vector2(926, 577)
 script = ExtResource("1_cydo6")
 
 [node name="FootstepAudio" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
@@ -109,10 +126,6 @@ shape = SubResource("CapsuleShape2D_cydo6")
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_jgk43")
 
-[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
-limit_bottom = 360
-position_smoothing_enabled = true
-
 [node name="PlayerDetect" type="Area2D" parent="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 2
@@ -120,10 +133,12 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/PlayerDetect"]
 shape = SubResource("CircleShape2D_rvmg3")
 
-[node name="LeafblowParticles" parent="CharacterBody2D" instance=ExtResource("4_agtjx")]
-position = Vector2(36, -2)
-orbit_velocity_min = -1.0
-orbit_velocity_max = -1.0
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+limit_bottom = 725
+position_smoothing_enabled = true
+
+[node name="FinishPileTimer" type="Timer" parent="CharacterBody2D"]
+autostart = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_ne0no")
@@ -149,3 +164,4 @@ Music by Kevin MacLeod
 Sound Effect by Martsfx,  DRAGON-STUDIO from Pixabay"
 
 [connection signal="body_entered" from="CharacterBody2D/PlayerDetect" to="CharacterBody2D" method="_on_player_detect_body_entered"]
+[connection signal="timeout" from="CharacterBody2D/FinishPileTimer" to="CharacterBody2D" method="_on_finish_pile_timer_timeout"]
