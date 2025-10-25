@@ -1,0 +1,78 @@
+[gd_scene load_steps=7 format=3 uid="uid://dr6cg0e2dyoek"]
+
+[ext_resource type="Texture2D" uid="uid://d2p5dv66hjjt2" path="res://assets/tree1.tres" id="1_4u5mn"]
+[ext_resource type="Texture2D" uid="uid://dbxbcrcqaqymd" path="res://assets/pile.tres" id="2_puh36"]
+[ext_resource type="Script" uid="uid://ddvoedw38pbds" path="res://src/scenes_scripts/FallTree.gd" id="2_ronpq"]
+[ext_resource type="Texture2D" uid="uid://2wht4b3bl3pj" path="res://assets/leaf.tres" id="3_85mx4"]
+
+[sub_resource type="Gradient" id="Gradient_ne0no"]
+offsets = PackedFloat32Array(0, 0.886667, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_agtjx"]
+size = Vector2(130, 104.75)
+
+[node name="FallTree" type="Sprite2D"]
+texture = ExtResource("1_4u5mn")
+script = ExtResource("2_ronpq")
+
+[node name="FallParticles" type="CPUParticles2D" parent="."]
+position = Vector2(-2, -63)
+texture = ExtResource("3_85mx4")
+explosiveness = 0.41
+emission_shape = 3
+emission_rect_extents = Vector2(50, 50)
+gravity = Vector2(0, 500)
+angular_velocity_max = 288.0
+orbit_velocity_max = 0.25
+damping_min = 15.0
+damping_max = 15.0
+scale_amount_min = 0.2
+scale_amount_max = 0.3
+color_initial_ramp = SubResource("Gradient_ne0no")
+
+[node name="PileParent" type="Node2D" parent="."]
+position = Vector2(62, 151)
+
+[node name="Sprite2D4" type="Sprite2D" parent="PileParent"]
+visible = false
+modulate = Color(1, 1, 1, 0.623529)
+texture = ExtResource("2_puh36")
+
+[node name="Sprite2D5" type="Sprite2D" parent="PileParent"]
+visible = false
+modulate = Color(1, 1, 1, 0.623529)
+position = Vector2(-60, 6)
+texture = ExtResource("2_puh36")
+
+[node name="Sprite2D" type="Sprite2D" parent="PileParent"]
+visible = false
+modulate = Color(1, 1, 1, 0.623529)
+position = Vector2(-41, -46)
+texture = ExtResource("2_puh36")
+
+[node name="Sprite2D2" type="Sprite2D" parent="PileParent"]
+visible = false
+modulate = Color(1, 1, 1, 0.623529)
+position = Vector2(12, -32)
+texture = ExtResource("2_puh36")
+
+[node name="Sprite2D3" type="Sprite2D" parent="PileParent"]
+visible = false
+modulate = Color(1, 1, 1, 0.623529)
+position = Vector2(-84, -24)
+texture = ExtResource("2_puh36")
+
+[node name="LeafPileStaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 124)
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeafPileStaticBody2D"]
+shape = SubResource("RectangleShape2D_agtjx")
+
+[node name="LeafPilingTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="LeafPilingTimer" to="." method="_on_leaf_piling_timer_timeout"]
