@@ -13,6 +13,7 @@ colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1)
 size = Vector2(130, 104.75)
 
 [node name="FallTree" type="Sprite2D"]
+y_sort_enabled = true
 texture = ExtResource("1_4u5mn")
 script = ExtResource("2_ronpq")
 
@@ -35,12 +36,10 @@ color_initial_ramp = SubResource("Gradient_ne0no")
 position = Vector2(62, 151)
 
 [node name="Sprite2D4" type="Sprite2D" parent="PileParent"]
-visible = false
 modulate = Color(1, 1, 1, 0.623529)
 texture = ExtResource("2_puh36")
 
 [node name="Sprite2D5" type="Sprite2D" parent="PileParent"]
-visible = false
 modulate = Color(1, 1, 1, 0.623529)
 position = Vector2(-60, 6)
 texture = ExtResource("2_puh36")

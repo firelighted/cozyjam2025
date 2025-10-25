@@ -30,32 +30,50 @@ func _ready() -> void:
 	pile_audio = get_node(pile_audio_path)
 
 
-func _physics_process(delta: float) -> void:
-	# Add the gravity.
-	if not is_on_floor():
-		velocity.y += gravity * delta
+#func _physics_process(delta: float) -> void:
+	## Add the gravity.
+	#if not is_on_floor():
+		#velocity.y += gravity * delta
+#
+	## Handle jump.
+	#if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+		#velocity.y = JUMP_VELOCITY
+#
+	## Get the input direction and handle the movement/deceleration.
+	## As good practice, you should replace UI actions with custom gameplay actions.
+	#var direction := Input.get_axis("ui_left", "ui_right")
+	#if direction:
+		#velocity.x = direction * SPEED
+	#else:
+		#velocity.x = move_toward(velocity.x, 0, SPEED)
+		#
+	#move_and_slide()
+		#
 
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("ui_left", "ui_right")
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-
+func _physics_process(delta):
+	var direction_topdown = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	velocity = direction_topdown * SPEED
+	
+	#if $CharSprite.position.y > 50:
+		#$CharSprite.position.y += gravity * delta
+	#elif  $CharSprite.position.y < 0: 
+		#$CharSprite.position.y = 0
+	if Input.is_action_just_pressed("ui_accept"):
+		#$CharSprite.position.y += JUMP_VELOCITY * delta
+		$AnimationPlayer.play("jump")
+	
+	move_and_slide()
+	
+	var direction = direction_topdown.x
+	
 	leafblow.orbit_velocity_max = direction + 1
 	leafblow.orbit_velocity_min = direction
 	leafblow.direction.x = direction
 	leafblow.emitting = (direction != 0)
-	footstep_audio.stream_paused = (direction == 0) or not is_on_floor()
+	footstep_audio.stream_paused = (direction_topdown.length_squared() == 0) or not is_on_floor()
 	leafblow.position = position + Vector2(32 * direction, -32)
 	if direction != 0:
 		$CharSprite.scale = Vector2(direction, 1)
-	move_and_slide()
 
 
 func _on_player_detect_body_entered(body: Node2D) -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c4hph8pvvd547"]
+[gd_scene load_steps=20 format=3 uid="uid://c4hph8pvvd547"]
 
 [ext_resource type="Script" uid="uid://cqhx7autm2quy" path="res://src/scenes_scripts/main.gd" id="1_8bppn"]
 [ext_resource type="Script" uid="uid://cl1n471ie3nkm" path="res://src/scenes_scripts/player2d.gd" id="1_cydo6"]
@@ -30,6 +30,43 @@ height = 100.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_rvmg3"]
 radius = 60.0
 
+[sub_resource type="Animation" id="Animation_1dgxd"]
+resource_name = "jump"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.266667, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -47), Vector2(0, -67), Vector2(0, -50), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wjbgh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -47)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_73g7s"]
+_data = {
+&"RESET": SubResource("Animation_wjbgh"),
+&"jump": SubResource("Animation_1dgxd")
+}
+
 [node name="Main" type="Node"]
 script = ExtResource("1_8bppn")
 
@@ -48,6 +85,10 @@ texture = SubResource("GradientTexture2D_rvmg3")
 position = Vector2(1425, 34)
 shape = SubResource("RectangleShape2D_ne0no")
 
+[node name="GroundCollisionShape2D2" type="CollisionShape2D" parent="Background/GroundStaticBody2D"]
+position = Vector2(1420, -310)
+shape = SubResource("RectangleShape2D_ne0no")
+
 [node name="BackgroundExtraSky" type="Sprite2D" parent="Background"]
 visible = false
 position = Vector2(1, -170)
@@ -55,54 +96,86 @@ texture = ExtResource("1_rvmg3")
 offset = Vector2(1600, 100)
 
 [node name="Background" type="Sprite2D" parent="Background"]
-position = Vector2(0, 175)
-scale = Vector2(1.25, 1.25)
+position = Vector2(0, 1)
 texture = ExtResource("1_rvmg3")
 offset = Vector2(1600, 100)
 
 [node name="TreeParent" type="Node" parent="."]
 
 [node name="Tree" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(374, 492)
+position = Vector2(303, 391)
 
 [node name="Tree2" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(573, 503)
+position = Vector2(502, 402)
 
 [node name="Tree3" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(762, 598)
+position = Vector2(98, 368)
 
 [node name="Tree4" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(1304, 548)
-
-[node name="Tree5" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(1397, 548)
+position = Vector2(894, 387)
 
 [node name="Tree6" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(1480, 548)
+position = Vector2(1159, 393)
 
 [node name="Tree7" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(1654, 587)
+position = Vector2(1560, 384)
 
 [node name="Tree8" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(1781, 543)
+position = Vector2(1750, 386)
 
 [node name="Tree9" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(1011, 605)
+position = Vector2(3041, 376)
 
 [node name="Tree10" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(2640, 546)
-
-[node name="Tree11" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(2235, 546)
+position = Vector2(2051, 385)
 
 [node name="Tree12" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(1950, 551)
-
-[node name="Tree13" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(2482, 551)
+position = Vector2(2301, 394)
 
 [node name="Tree14" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(2482, 551)
+position = Vector2(2530, 399)
+
+[node name="TreeParent2" type="Node" parent="."]
+
+[node name="Tree" parent="TreeParent2" instance=ExtResource("3_1dgxd")]
+z_index = 200
+position = Vector2(424, 612)
+
+[node name="Tree3" parent="TreeParent2" instance=ExtResource("3_1dgxd")]
+z_index = 200
+position = Vector2(219, 589)
+
+[node name="Tree5" parent="TreeParent2" instance=ExtResource("3_1dgxd")]
+z_index = 200
+position = Vector2(1149, 608)
+
+[node name="Tree6" parent="TreeParent2" instance=ExtResource("3_1dgxd")]
+z_index = 200
+position = Vector2(1280, 614)
+
+[node name="Tree7" parent="TreeParent2" instance=ExtResource("3_1dgxd")]
+z_index = 200
+position = Vector2(1537, 603)
+
+[node name="Tree8" parent="TreeParent2" instance=ExtResource("3_1dgxd")]
+z_index = 200
+position = Vector2(1871, 607)
+
+[node name="Tree9" parent="TreeParent2" instance=ExtResource("3_1dgxd")]
+z_index = 200
+position = Vector2(3162, 597)
+
+[node name="Tree10" parent="TreeParent2" instance=ExtResource("3_1dgxd")]
+z_index = 200
+position = Vector2(2056, 619)
+
+[node name="Tree12" parent="TreeParent2" instance=ExtResource("3_1dgxd")]
+z_index = 200
+position = Vector2(2306, 628)
+
+[node name="Tree14" parent="TreeParent2" instance=ExtResource("3_1dgxd")]
+z_index = 200
+position = Vector2(2535, 633)
 
 [node name="LeafblowParticles" parent="." instance=ExtResource("4_agtjx")]
 position = Vector2(98, 586)
@@ -120,8 +193,8 @@ scale_amount_max = 0.4
 color_initial_ramp = SubResource("Gradient_8ksqs")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-z_index = 100
-position = Vector2(109, 584)
+y_sort_enabled = true
+position = Vector2(913, 506)
 script = ExtResource("1_cydo6")
 hud_label_path = NodePath("../Control/Label")
 
@@ -138,6 +211,8 @@ stream = ExtResource("6_8ksqs")
 shape = SubResource("CapsuleShape2D_cydo6")
 
 [node name="CharSprite" type="Sprite2D" parent="CharacterBody2D"]
+y_sort_enabled = true
+position = Vector2(0, -47)
 texture = ExtResource("8_8bppn")
 
 [node name="PlayerDetect" type="Area2D" parent="CharacterBody2D"]
@@ -155,6 +230,14 @@ position_smoothing_enabled = true
 
 [node name="FinishPileTimer" type="Timer" parent="CharacterBody2D"]
 autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody2D"]
+libraries = {
+&"": SubResource("AnimationLibrary_73g7s")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="CharacterBody2D"]
+anim_player = NodePath("../AnimationPlayer")
 
 [node name="BackgroundAudio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_ne0no")
