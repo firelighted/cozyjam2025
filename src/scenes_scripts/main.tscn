@@ -1,17 +1,17 @@
-[gd_scene load_steps=27 format=3 uid="uid://c4hph8pvvd547"]
+[gd_scene load_steps=26 format=3 uid="uid://c4hph8pvvd547"]
 
 [ext_resource type="Script" uid="uid://cqhx7autm2quy" path="res://src/scenes_scripts/main.gd" id="1_8bppn"]
 [ext_resource type="Script" uid="uid://cl1n471ie3nkm" path="res://src/scenes_scripts/player2d.gd" id="1_cydo6"]
 [ext_resource type="Texture2D" uid="uid://kekbajck4uv2" path="res://assets/spritesheet.png" id="1_rvmg3"]
 [ext_resource type="PackedScene" uid="uid://dr6cg0e2dyoek" path="res://src/scenes_scripts/falltree.tscn" id="3_1dgxd"]
-[ext_resource type="AudioStream" uid="uid://bsv4dd20fd7k" path="res://src/audio/Adding the Sun.mp3" id="3_ne0no"]
+[ext_resource type="AudioStream" uid="uid://bsv4dd20fd7k" path="res://assets/sfx/Adding the Sun.mp3" id="3_ne0no"]
 [ext_resource type="PackedScene" uid="uid://ik5klehl7a0u" path="res://src/scenes_scripts/leafblow_particles.tscn" id="4_agtjx"]
 [ext_resource type="Texture2D" uid="uid://2wht4b3bl3pj" path="res://assets/leaf.tres" id="5_1dgxd"]
 [ext_resource type="AudioStream" uid="uid://bcdl2uxmif17b" path="res://assets/sfx/walking-on-dry-leaves-361514.mp3" id="5_3cxgn"]
 [ext_resource type="AudioStream" uid="uid://jr8e48mgfra6" path="res://assets/sfx/whoosh-effect-405447.mp3" id="6_8ksqs"]
 [ext_resource type="Texture2D" uid="uid://ferav2ri8itn" path="res://assets/player.tres" id="8_8bppn"]
-[ext_resource type="Script" uid="uid://cjxjdoc7teg7j" path="res://src/scenes_scripts/turkey.gd" id="11_73g7s"]
-[ext_resource type="Texture2D" uid="uid://bqrjnnoe8lspx" path="res://assets/turkey1.tres" id="12_guj35"]
+[ext_resource type="Texture2D" uid="uid://c46lv2now7fjb" path="res://assets/speech.tres" id="10_73g7s"]
+[ext_resource type="PackedScene" uid="uid://d1noiansgr6sn" path="res://src/scenes_scripts/turkey.tscn" id="11_wjbgh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ne0no"]
 size = Vector2(3587.75, 71.5)
@@ -41,6 +41,21 @@ height = 100.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_rvmg3"]
 radius = 60.0
 
+[sub_resource type="Animation" id="Animation_wjbgh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -47)]
+}
+
 [sub_resource type="Animation" id="Animation_1dgxd"]
 resource_name = "jump"
 length = 0.5
@@ -57,21 +72,6 @@ tracks/0/keys = {
 "values": [Vector2(0, -47), Vector2(0, -67), Vector2(0, -50), Vector2(0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_wjbgh"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CharSprite:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -47)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_73g7s"]
 _data = {
 &"RESET": SubResource("Animation_wjbgh"),
@@ -79,9 +79,6 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_73g7s"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_d8l4k"]
-radius = 28.0179
 
 [node name="Main" type="Node"]
 script = ExtResource("1_8bppn")
@@ -120,8 +117,8 @@ texture = ExtResource("1_rvmg3")
 offset = Vector2(1600, 100)
 
 [node name="Sidwalk" type="Sprite2D" parent="Background"]
-position = Vector2(1566, 233)
-scale = Vector2(50.6406, 7.03828)
+position = Vector2(1563.25, 228.113)
+scale = Vector2(50.7266, 7.19102)
 texture = SubResource("GradientTexture2D_rvmg3")
 
 [node name="RoadSprite3" type="Sprite2D" parent="Background"]
@@ -235,11 +232,13 @@ hud_label_path = NodePath("../Control/Label")
 [node name="FootstepAudio" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
 position = Vector2(-372, -277)
 stream = ExtResource("5_3cxgn")
+volume_db = 5.0
 autoplay = true
 
 [node name="SFXAudio" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
 position = Vector2(-372, -277)
 stream = ExtResource("6_8ksqs")
+volume_db = -10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("CapsuleShape2D_cydo6")
@@ -276,12 +275,44 @@ libraries = {
 position = Vector2(-174, 111)
 stream = ExtResource("6_8ksqs")
 
+[node name="LostItemSFX" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
+position = Vector2(-174, 111)
+stream = ExtResource("6_8ksqs")
+
 [node name="TurkeyDetect" type="Area2D" parent="CharacterBody2D"]
 collision_layer = 16
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/TurkeyDetect"]
 shape = SubResource("CircleShape2D_73g7s")
+
+[node name="speech" type="NinePatchRect" parent="CharacterBody2D"]
+offset_left = -87.0
+offset_top = -189.0
+offset_right = 343.0
+offset_bottom = -53.0
+texture = ExtResource("10_73g7s")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 20
+
+[node name="HideSpeechTimer" type="Timer" parent="CharacterBody2D/speech"]
+wait_time = 7.0
+autostart = true
+
+[node name="Label" type="Label" parent="CharacterBody2D/speech"]
+modulate = Color(0.129558, 0.129558, 0.129558, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "You found a lost scarf! \"Thank you, kind soul! The possessions you found have been returned to their rightful owners in the Brookline Middle second grade class\"."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="BackgroundAudio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_ne0no")
@@ -309,6 +340,7 @@ Sound Effect by Martsfx,  DRAGON-STUDIO from Pixabay"
 [node name="Control" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="Control"]
+self_modulate = Color(0, 0, 0, 1)
 offset_left = 555.0
 offset_top = 9.0
 offset_right = 679.0
@@ -316,19 +348,19 @@ offset_bottom = 58.0
 text = "#/10 piles raked
 #/3 items found"
 
-[node name="Turkey" type="Area2D" parent="."]
+[node name="Turkey" parent="." instance=ExtResource("11_wjbgh")]
 position = Vector2(739, 617)
-collision_layer = 8
-collision_mask = 17
-script = ExtResource("11_73g7s")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Turkey"]
-shape = SubResource("CircleShape2D_d8l4k")
+[node name="Turkey2" parent="." instance=ExtResource("11_wjbgh")]
+position = Vector2(2874, 591)
 
-[node name="Sprite2D" type="Sprite2D" parent="Turkey"]
-texture = ExtResource("12_guj35")
+[node name="Turkey3" parent="." instance=ExtResource("11_wjbgh")]
+position = Vector2(2212, 645)
+
+[node name="Turkey4" parent="." instance=ExtResource("11_wjbgh")]
+position = Vector2(394, 603)
 
 [connection signal="body_entered" from="CharacterBody2D/PlayerDetect" to="CharacterBody2D" method="_on_player_detect_body_entered"]
 [connection signal="timeout" from="CharacterBody2D/FinishPileTimer" to="CharacterBody2D" method="_on_finish_pile_timer_timeout"]
 [connection signal="area_entered" from="CharacterBody2D/TurkeyDetect" to="CharacterBody2D" method="_on_turkey_detect_area_entered"]
-[connection signal="area_entered" from="Turkey" to="." method="_on_turkey_area_entered"]
+[connection signal="timeout" from="CharacterBody2D/speech/HideSpeechTimer" to="CharacterBody2D" method="_on_hide_speech_timer_timeout"]

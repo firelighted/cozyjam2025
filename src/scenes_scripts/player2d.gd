@@ -21,33 +21,34 @@ var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 var piles_found = 0
 var special_items_found = 0
 const special_items_total = 3
+const item_names = [
+	"purple fleece hat", "red glove", "pale orange beanie",  "toy horse",
+	"handmade wool scarf", "bright yellow mittens", "Red Sox baseball cap", 
+	"fuzzy green beanie", "pair of Pikachu slippers", "Bluey-themed analog watch", 
+	"Qatar world cup soccer ball", 
+	"pink hydroflask covered in Hello Kitty stickers", "ceramic mushroom mug"
+]
 
 func _ready() -> void:
+	randomize()
 	hud_label = get_node(hud_label_path)
 	leafblow = get_node(leafblow_path)
 	footstep_audio = get_node(footstep_audio_path)
-	pile_audio = get_node(pile_audio_path)
+	pile_audio = get_node(pile_audio_path) 
+	$speech.hide()
+	$FootstepAudio.play()
 
 
-#func _physics_process(delta: float) -> void:
-	## Add the gravity.
-	#if not is_on_floor():
-		#velocity.y += gravity * delta
-#
-	## Handle jump.
-	#if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		#velocity.y = JUMP_VELOCITY
-#
-	## Get the input direction and handle the movement/deceleration.
-	## As good practice, you should replace UI actions with custom gameplay actions.
-	#var direction := Input.get_axis("ui_left", "ui_right")
-	#if direction:
-		#velocity.x = direction * SPEED
-	#else:
-		#velocity.x = move_toward(velocity.x, 0, SPEED)
-		#
-	#move_and_slide()
-		#
+func found_lost_item(): 
+	$speech.show()
+	$LostItemSFX.play()
+	var message = "You found a lost %s!" % item_names[randi() % item_names.size()]
+	special_items_found += 1
+	if special_items_found == special_items_total:
+		message += " Thank you, kind soul! The possessions you found have been returned to their rightful owners in the Brookline Middle second grade class"
+	$speech/Label.text = message
+	$speech/HideSpeechTimer.start()
+	
 
 func _physics_process(_delta):
 	var direction_topdown = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -68,7 +69,7 @@ func _physics_process(_delta):
 	leafblow.orbit_velocity_max = direction + 1
 	leafblow.orbit_velocity_min = direction
 	leafblow.direction.x = direction
-	footstep_audio.stream_paused = (direction_topdown.length_squared() == 0) or not is_on_floor()
+	footstep_audio.stream_paused = (direction_topdown.length_squared() == 0)
 	leafblow.position = position + Vector2(32 * direction, -32)
 	if direction != 0:
 		$CharSprite.scale = Vector2(direction, 1)
@@ -82,6 +83,8 @@ func _on_player_detect_body_entered(body: Node2D) -> void:
 	body.get_parent().collect()
 	leafblow.amount = MAX_LEAVES_BLOWN
 	pile_audio.play()
+	if randf() < 0.1:
+		found_lost_item()
 
 func _on_finish_pile_timer_timeout() -> void:
 	# runs repeatedly and automatically
@@ -92,3 +95,7 @@ func _on_finish_pile_timer_timeout() -> void:
 
 func _on_turkey_detect_area_entered(area: Area2D) -> void:
 	$TurkeySFX.play()
+
+
+func _on_hide_speech_timer_timeout() -> void:
+	$speech.hide()

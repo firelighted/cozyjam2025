@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bsv4dd20fd7k"
+path="res://.godot/imported/Adding the Sun.mp3-563344bc623213f3c296af339017229f.mp3str"
+
+[deps]
+
+source_file="res://assets/sfx/Adding the Sun.mp3"
+dest_files=["res://.godot/imported/Adding the Sun.mp3-563344bc623213f3c296af339017229f.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
