@@ -1,17 +1,18 @@
-[gd_scene load_steps=12 format=3 uid="uid://c4hph8pvvd547"]
+[gd_scene load_steps=14 format=3 uid="uid://c4hph8pvvd547"]
 
 [ext_resource type="Script" uid="uid://cl1n471ie3nkm" path="res://src/scenes_scripts/player2d.gd" id="1_cydo6"]
 [ext_resource type="Texture2D" uid="uid://f3l7j646b26n" path="res://icon.svg" id="1_jgk43"]
 [ext_resource type="Texture2D" uid="uid://kekbajck4uv2" path="res://assets/spritesheet.png" id="1_rvmg3"]
 [ext_resource type="AudioStream" uid="uid://bsv4dd20fd7k" path="res://src/audio/Adding the Sun.mp3" id="3_ne0no"]
+[ext_resource type="PackedScene" uid="uid://cetsug3kt8u4o" path="res://src/scenes_scripts/leafblow_particles.tscn" id="4_agtjx"]
 [ext_resource type="Texture2D" uid="uid://d2p5dv66hjjt2" path="res://assets/tree1.tres" id="5_agtjx"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cydo6"]
-radius = 18.0
-height = 56.0
+[sub_resource type="Gradient" id="Gradient_ne0no"]
+offsets = PackedFloat32Array(0, 0.886667, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1)
 
-[sub_resource type="Gradient" id="Gradient_cydo6"]
-colors = PackedColorArray(0.78259, 0.55398, 3.85046e-07, 1, 1, 0.12549, 0.0980392, 1)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_agtjx"]
+size = Vector2(64, 27)
 
 [sub_resource type="Gradient" id="Gradient_icmaw"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -22,80 +23,28 @@ gradient = SubResource("Gradient_icmaw")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ne0no"]
 size = Vector2(698, 35)
 
-[sub_resource type="Gradient" id="Gradient_ne0no"]
-offsets = PackedFloat32Array(0, 0.886667, 1)
-colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cydo6"]
+radius = 18.0
+height = 56.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rvmg3"]
+radius = 31.5753
 
 [node name="Main" type="Node"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 546.0
+offset_top = 9.0
+offset_right = 670.0
+offset_bottom = 58.0
+text = "#/10 piles raked
+#/3 items found"
 
 [node name="Background" type="Node2D" parent="."]
 position = Vector2(317.5, 353.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="Background"]
 texture = ExtResource("1_rvmg3")
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-position = Vector2(372, 277)
-script = ExtResource("1_cydo6")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-shape = SubResource("CapsuleShape2D_cydo6")
-
-[node name="CharSprite" type="Sprite2D" parent="CharacterBody2D"]
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("1_jgk43")
-
-[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
-limit_bottom = 360
-position_smoothing_enabled = true
-
-[node name="LeafblowParticles" type="CPUParticles2D" parent="."]
-position = Vector2(440, 261)
-emission_shape = 3
-emission_rect_extents = Vector2(50, 1)
-gravity = Vector2(0, 500)
-orbit_velocity_min = 1.0
-orbit_velocity_max = 1.0
-damping_min = 15.0
-damping_max = 15.0
-scale_amount_min = 4.0
-scale_amount_max = 4.0
-color_ramp = SubResource("Gradient_cydo6")
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_ne0no")
-autoplay = true
-
-[node name="UI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="UI"]
-modulate = Color(0.536804, 0.191555, 0.017827, 1)
-layout_mode = 0
-offset_left = 14.0
-offset_top = 6.0
-offset_right = 479.0
-offset_bottom = 169.0
-text = "Afternoon Leafblowing
-Art by Patrick Rall
-Code by Sarah Asano
-Music by Kevin MacLeod"
-
-[node name="GroundStaticBody2D" type="StaticBody2D" parent="."]
-scale = Vector2(6, 1)
-
-[node name="RoadSprite" type="Sprite2D" parent="GroundStaticBody2D"]
-position = Vector2(319.5, 364.25)
-scale = Vector2(10, 1)
-texture = SubResource("GradientTexture2D_rvmg3")
-
-[node name="GroundCollisionShape2D" type="CollisionShape2D" parent="GroundStaticBody2D"]
-position = Vector2(344, 357.5)
-scale = Vector2(5, 1)
-shape = SubResource("RectangleShape2D_ne0no")
 
 [node name="Tree" type="Sprite2D" parent="."]
 position = Vector2(132, 252)
@@ -112,3 +61,83 @@ damping_max = 15.0
 scale_amount_min = 4.0
 scale_amount_max = 4.0
 color_initial_ramp = SubResource("Gradient_ne0no")
+
+[node name="LeafPileStaticBody2D" type="StaticBody2D" parent="Tree"]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tree/LeafPileStaticBody2D"]
+position = Vector2(18, 77.5)
+shape = SubResource("RectangleShape2D_agtjx")
+
+[node name="Sprite2D" type="Sprite2D" parent="Tree/LeafPileStaticBody2D"]
+position = Vector2(18, 77)
+scale = Vector2(0.5, 0.2)
+texture = ExtResource("1_jgk43")
+
+[node name="GroundStaticBody2D" type="StaticBody2D" parent="."]
+scale = Vector2(6, 1)
+
+[node name="RoadSprite" type="Sprite2D" parent="GroundStaticBody2D"]
+position = Vector2(319.5, 364.25)
+scale = Vector2(10, 1)
+texture = SubResource("GradientTexture2D_rvmg3")
+
+[node name="GroundCollisionShape2D" type="CollisionShape2D" parent="GroundStaticBody2D"]
+position = Vector2(344, 357.5)
+scale = Vector2(5, 1)
+shape = SubResource("RectangleShape2D_ne0no")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(372, 277)
+script = ExtResource("1_cydo6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CapsuleShape2D_cydo6")
+
+[node name="CharSprite" type="Sprite2D" parent="CharacterBody2D"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_jgk43")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+limit_bottom = 360
+position_smoothing_enabled = true
+
+[node name="PlayerDetect" type="Area2D" parent="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/PlayerDetect"]
+shape = SubResource("CircleShape2D_rvmg3")
+
+[node name="LeafblowParticles" parent="CharacterBody2D" instance=ExtResource("4_agtjx")]
+position = Vector2(36, -2)
+orbit_velocity_min = -1.0
+orbit_velocity_max = -1.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ne0no")
+autoplay = true
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI"]
+modulate = Color(0.536804, 0.191555, 0.017827, 1)
+layout_mode = 0
+offset_left = 14.0
+offset_top = 6.0
+offset_right = 424.0
+offset_bottom = 146.0
+text = "Afternoon Leafblowing
+Art by Patrick Rall
+Code by Sarah Asano
+Music by Kevin MacLeod
+Sound Effect by Martsfx from Pixabay"
+
+[node name="SFXAudio" type="AudioStreamPlayer2D" parent="."]
+
+[connection signal="body_entered" from="CharacterBody2D/PlayerDetect" to="CharacterBody2D" method="_on_player_detect_body_entered"]
