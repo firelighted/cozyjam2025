@@ -63,7 +63,7 @@ func _on_player_detect_body_entered(body: Node2D) -> void:
 	piles_found += 1
 	hud_label.text = "%d/%d piles raked
 	%d/%d items found" % [piles_found, piles_found_total, special_items_found, special_items_total]
-	body.queue_free()
+	body.get_parent().collect()
 	leafblow.amount = MAX_LEAVES_BLOWN
 	pile_audio.play()
 
