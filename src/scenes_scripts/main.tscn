@@ -1,11 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://c4hph8pvvd547"]
+[gd_scene load_steps=16 format=3 uid="uid://c4hph8pvvd547"]
 
 [ext_resource type="Script" uid="uid://cl1n471ie3nkm" path="res://src/scenes_scripts/player2d.gd" id="1_cydo6"]
 [ext_resource type="Texture2D" uid="uid://f3l7j646b26n" path="res://icon.svg" id="1_jgk43"]
 [ext_resource type="Texture2D" uid="uid://kekbajck4uv2" path="res://assets/spritesheet.png" id="1_rvmg3"]
 [ext_resource type="AudioStream" uid="uid://bsv4dd20fd7k" path="res://src/audio/Adding the Sun.mp3" id="3_ne0no"]
 [ext_resource type="PackedScene" uid="uid://cetsug3kt8u4o" path="res://src/scenes_scripts/leafblow_particles.tscn" id="4_agtjx"]
+[ext_resource type="AudioStream" uid="uid://bcdl2uxmif17b" path="res://assets/sfx/walking-on-dry-leaves-361514.mp3" id="5_3cxgn"]
 [ext_resource type="Texture2D" uid="uid://d2p5dv66hjjt2" path="res://assets/tree1.tres" id="5_agtjx"]
+[ext_resource type="AudioStream" uid="uid://jr8e48mgfra6" path="res://assets/sfx/whoosh-effect-405447.mp3" id="6_8ksqs"]
 
 [sub_resource type="Gradient" id="Gradient_ne0no"]
 offsets = PackedFloat32Array(0, 0.886667, 1)
@@ -67,11 +69,11 @@ collision_layer = 2
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tree/LeafPileStaticBody2D"]
-position = Vector2(18, 77.5)
+position = Vector2(2, 35)
 shape = SubResource("RectangleShape2D_agtjx")
 
 [node name="Sprite2D" type="Sprite2D" parent="Tree/LeafPileStaticBody2D"]
-position = Vector2(18, 77)
+position = Vector2(3, 34)
 scale = Vector2(0.5, 0.2)
 texture = ExtResource("1_jgk43")
 
@@ -91,6 +93,14 @@ shape = SubResource("RectangleShape2D_ne0no")
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 position = Vector2(372, 277)
 script = ExtResource("1_cydo6")
+
+[node name="FootstepAudio" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
+position = Vector2(-372, -277)
+stream = ExtResource("5_3cxgn")
+
+[node name="SFXAudio" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
+position = Vector2(-372, -277)
+stream = ExtResource("6_8ksqs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("CapsuleShape2D_cydo6")
@@ -136,8 +146,6 @@ text = "Afternoon Leafblowing
 Art by Patrick Rall
 Code by Sarah Asano
 Music by Kevin MacLeod
-Sound Effect by Martsfx from Pixabay"
-
-[node name="SFXAudio" type="AudioStreamPlayer2D" parent="."]
+Sound Effect by Martsfx,  DRAGON-STUDIO from Pixabay"
 
 [connection signal="body_entered" from="CharacterBody2D/PlayerDetect" to="CharacterBody2D" method="_on_player_detect_body_entered"]

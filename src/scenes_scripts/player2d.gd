@@ -2,9 +2,13 @@ extends CharacterBody2D
 
 @export var hud_label_path: NodePath = "../Label"
 @export var leafblow_path: NodePath = "LeafblowParticles"
+@export var footstep_audio_path: NodePath = "FootstepAudio"
+@export var pile_audio_path: NodePath = "SFXAudio"
 #@export var leafblow : PackedScene = load("res://src/scenes_scripts/leafblow_particles.tscn")
 var hud_label : Label
 var leafblow : CPUParticles2D
+var footstep_audio : AudioStreamPlayer2D
+var pile_audio : AudioStreamPlayer2D
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
@@ -20,6 +24,8 @@ const special_items_total = 3
 func _ready() -> void:
 	hud_label = get_node(hud_label_path)
 	leafblow = get_node(leafblow_path)
+	footstep_audio = get_node(footstep_audio_path)
+	pile_audio = get_node(pile_audio_path)
 
 
 func _physics_process(delta: float) -> void:
@@ -42,6 +48,7 @@ func _physics_process(delta: float) -> void:
 	leafblow.orbit_velocity_min = direction
 	leafblow.orbit_velocity_max = direction
 	leafblow.emitting = (direction != 0)
+	footstep_audio.playing = (direction != 0) and is_on_floor()
 	move_and_slide()
 
 

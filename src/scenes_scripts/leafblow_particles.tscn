@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://cetsug3kt8u4o"]
+
+[sub_resource type="Gradient" id="Gradient_cydo6"]
+colors = PackedColorArray(0.78259, 0.55398, 3.85046e-07, 1, 1, 0.12549, 0.0980392, 1)
+
+[node name="LeafblowParticles" type="CPUParticles2D"]
+emission_shape = 3
+emission_rect_extents = Vector2(50, 1)
+gravity = Vector2(0, 500)
+orbit_velocity_min = 1.0
+orbit_velocity_max = 1.0
+damping_min = 15.0
+damping_max = 15.0
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_cydo6")
