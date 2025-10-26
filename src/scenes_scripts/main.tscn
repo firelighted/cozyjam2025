@@ -1,9 +1,10 @@
-[gd_scene load_steps=27 format=3 uid="uid://c4hph8pvvd547"]
+[gd_scene load_steps=28 format=3 uid="uid://c4hph8pvvd547"]
 
 [ext_resource type="Script" uid="uid://cqhx7autm2quy" path="res://src/scenes_scripts/main.gd" id="1_8bppn"]
 [ext_resource type="Script" uid="uid://cl1n471ie3nkm" path="res://src/scenes_scripts/player2d.gd" id="1_cydo6"]
 [ext_resource type="Texture2D" uid="uid://kekbajck4uv2" path="res://assets/spritesheet.png" id="1_rvmg3"]
 [ext_resource type="PackedScene" uid="uid://dr6cg0e2dyoek" path="res://src/scenes_scripts/falltree.tscn" id="3_1dgxd"]
+[ext_resource type="Texture2D" uid="uid://60plrj7ogpt8" path="res://assets/musician_speech.png" id="3_d8l4k"]
 [ext_resource type="PackedScene" uid="uid://ik5klehl7a0u" path="res://src/scenes_scripts/leafblow_particles.tscn" id="4_agtjx"]
 [ext_resource type="Texture2D" uid="uid://2wht4b3bl3pj" path="res://assets/leaf.tres" id="5_1dgxd"]
 [ext_resource type="AudioStream" uid="uid://bcdl2uxmif17b" path="res://assets/sfx/walking-on-dry-leaves-361514.mp3" id="5_3cxgn"]
@@ -106,15 +107,14 @@ shape = SubResource("RectangleShape2D_73g7s")
 position = Vector2(3284, -70)
 shape = SubResource("RectangleShape2D_73g7s")
 
-[node name="BackgroundExtraSky" type="Sprite2D" parent="Background"]
-visible = false
-position = Vector2(1, -170)
-texture = ExtResource("1_rvmg3")
-offset = Vector2(1600, 100)
-
 [node name="Background" type="Sprite2D" parent="Background"]
 position = Vector2(0, 1)
 texture = ExtResource("1_rvmg3")
+offset = Vector2(1600, 100)
+
+[node name="Background2" type="Sprite2D" parent="Background"]
+position = Vector2(0, 1)
+texture = ExtResource("3_d8l4k")
 offset = Vector2(1600, 100)
 
 [node name="Sidwalk" type="Sprite2D" parent="Background"]
@@ -147,7 +147,7 @@ position = Vector2(502, 434)
 position = Vector2(132, 434)
 
 [node name="Tree4" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(865, 449)
+position = Vector2(719, 451)
 
 [node name="Tree6" parent="TreeParent" instance=ExtResource("3_1dgxd")]
 position = Vector2(1372, 442)
@@ -266,7 +266,7 @@ position = Vector2(144, 0)
 limit_left = 0
 limit_top = 0
 limit_right = 3200
-limit_bottom = 725
+limit_bottom = 769
 position_smoothing_enabled = true
 
 [node name="FinishPileTimer" type="Timer" parent="CharacterBody2D"]
