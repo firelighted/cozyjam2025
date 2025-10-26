@@ -1,17 +1,18 @@
-[gd_scene load_steps=26 format=3 uid="uid://c4hph8pvvd547"]
+[gd_scene load_steps=27 format=3 uid="uid://c4hph8pvvd547"]
 
 [ext_resource type="Script" uid="uid://cqhx7autm2quy" path="res://src/scenes_scripts/main.gd" id="1_8bppn"]
 [ext_resource type="Script" uid="uid://cl1n471ie3nkm" path="res://src/scenes_scripts/player2d.gd" id="1_cydo6"]
 [ext_resource type="Texture2D" uid="uid://kekbajck4uv2" path="res://assets/spritesheet.png" id="1_rvmg3"]
 [ext_resource type="PackedScene" uid="uid://dr6cg0e2dyoek" path="res://src/scenes_scripts/falltree.tscn" id="3_1dgxd"]
-[ext_resource type="AudioStream" uid="uid://bsv4dd20fd7k" path="res://assets/sfx/Adding the Sun.mp3" id="3_ne0no"]
 [ext_resource type="PackedScene" uid="uid://ik5klehl7a0u" path="res://src/scenes_scripts/leafblow_particles.tscn" id="4_agtjx"]
 [ext_resource type="Texture2D" uid="uid://2wht4b3bl3pj" path="res://assets/leaf.tres" id="5_1dgxd"]
 [ext_resource type="AudioStream" uid="uid://bcdl2uxmif17b" path="res://assets/sfx/walking-on-dry-leaves-361514.mp3" id="5_3cxgn"]
 [ext_resource type="AudioStream" uid="uid://jr8e48mgfra6" path="res://assets/sfx/whoosh-effect-405447.mp3" id="6_8ksqs"]
 [ext_resource type="Texture2D" uid="uid://ferav2ri8itn" path="res://assets/player.tres" id="8_8bppn"]
 [ext_resource type="Texture2D" uid="uid://c46lv2now7fjb" path="res://assets/speech.tres" id="10_73g7s"]
+[ext_resource type="AudioStream" uid="uid://434ywjrwh1n4" path="res://assets/sfx/coin_low.wav" id="10_guj35"]
 [ext_resource type="PackedScene" uid="uid://d1noiansgr6sn" path="res://src/scenes_scripts/turkey.tscn" id="11_wjbgh"]
+[ext_resource type="AudioStream" uid="uid://d2s0slh77yjp4" path="res://assets/cozy-background-fast.mp3" id="12_guj35"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ne0no"]
 size = Vector2(3587.75, 71.5)
@@ -53,7 +54,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, -47)]
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_1dgxd"]
@@ -117,56 +118,58 @@ texture = ExtResource("1_rvmg3")
 offset = Vector2(1600, 100)
 
 [node name="Sidwalk" type="Sprite2D" parent="Background"]
-position = Vector2(1563.25, 228.113)
+position = Vector2(1561.25, 208.419)
 scale = Vector2(50.7266, 7.19102)
 texture = SubResource("GradientTexture2D_rvmg3")
 
 [node name="RoadSprite3" type="Sprite2D" parent="Background"]
-position = Vector2(1535, -180)
+position = Vector2(1533, -199.694)
 scale = Vector2(45.4023, 0.32207)
 texture = SubResource("GradientTexture2D_rvmg3")
 
 [node name="RoadSprite" type="Sprite2D" parent="."]
-position = Vector2(51, 866)
+position = Vector2(53, 832)
 scale = Vector2(7.14063, 5.06602)
 texture = SubResource("GradientTexture2D_wjbgh")
 
-[node name="TreeParent" type="Node" parent="."]
+[node name="TreeParent" type="Node2D" parent="."]
+position = Vector2(-2, -32)
 
 [node name="Tree" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(303, 391)
+position = Vector2(303, 430)
 
 [node name="Tree2" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(502, 402)
+position = Vector2(502, 434)
 
 [node name="Tree3" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(98, 368)
+position = Vector2(132, 434)
 
 [node name="Tree4" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(894, 387)
+position = Vector2(1002, 434)
 
 [node name="Tree6" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(1159, 393)
+position = Vector2(1168, 433)
 
 [node name="Tree7" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(1560, 384)
+position = Vector2(1553, 432)
 
 [node name="Tree8" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(1750, 386)
+position = Vector2(1798, 434)
 
 [node name="Tree9" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(3041, 376)
+position = Vector2(3038, 430)
 
 [node name="Tree10" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(2051, 385)
+position = Vector2(2099, 433)
 
 [node name="Tree12" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(2301, 394)
+position = Vector2(2301, 439)
 
 [node name="Tree14" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(2530, 399)
+position = Vector2(2532, 436)
 
-[node name="TreeParent2" type="Node" parent="."]
+[node name="TreeParent2" type="Node2D" parent="."]
+position = Vector2(-9, -36)
 
 [node name="Tree" parent="TreeParent2" instance=ExtResource("3_1dgxd")]
 z_index = 200
@@ -174,7 +177,7 @@ position = Vector2(424, 612)
 
 [node name="Tree3" parent="TreeParent2" instance=ExtResource("3_1dgxd")]
 z_index = 200
-position = Vector2(219, 589)
+position = Vector2(559, 612)
 
 [node name="Tree5" parent="TreeParent2" instance=ExtResource("3_1dgxd")]
 z_index = 200
@@ -209,7 +212,7 @@ z_index = 200
 position = Vector2(2535, 633)
 
 [node name="LeafblowParticles" parent="." instance=ExtResource("4_agtjx")]
-position = Vector2(98, 586)
+position = Vector2(693, 658)
 amount = 24
 texture = ExtResource("5_1dgxd")
 lifetime = 3.0
@@ -225,7 +228,7 @@ color_initial_ramp = SubResource("Gradient_8ksqs")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 y_sort_enabled = true
-position = Vector2(913, 506)
+position = Vector2(642, 633)
 script = ExtResource("1_cydo6")
 hud_label_path = NodePath("../Control/Label")
 
@@ -241,14 +244,15 @@ stream = ExtResource("6_8ksqs")
 volume_db = -10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_cydo6")
 
 [node name="CharSprite" type="Sprite2D" parent="CharacterBody2D"]
 y_sort_enabled = true
-position = Vector2(0, -47)
 texture = ExtResource("8_8bppn")
 
 [node name="PlayerDetect" type="Area2D" parent="CharacterBody2D"]
+position = Vector2(0, 2)
 collision_layer = 4
 collision_mask = 2
 
@@ -273,7 +277,7 @@ libraries = {
 
 [node name="LostItemSFX" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
 position = Vector2(-174, 111)
-stream = ExtResource("6_8ksqs")
+stream = ExtResource("10_guj35")
 
 [node name="TurkeyDetect" type="Area2D" parent="CharacterBody2D"]
 collision_layer = 16
@@ -283,10 +287,10 @@ collision_mask = 8
 shape = SubResource("CircleShape2D_73g7s")
 
 [node name="speech" type="NinePatchRect" parent="CharacterBody2D"]
-offset_left = -87.0
-offset_top = -189.0
-offset_right = 343.0
-offset_bottom = -53.0
+offset_left = -196.0
+offset_top = -264.0
+offset_right = 234.0
+offset_bottom = -128.0
 texture = ExtResource("10_73g7s")
 patch_margin_left = 20
 patch_margin_top = 20
@@ -303,15 +307,17 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 9.0
+offset_right = -12.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "You found a lost scarf! \"Thank you, kind soul! The possessions you found have been returned to their rightful owners in the Brookline Middle second grade class\"."
+text = "You found a lost scarf! Thank you, kind soul! The possessions you found have been returned to their rightful owners in the Brookline Middle second grade class\"."
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="BackgroundAudio" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_ne0no")
+stream = ExtResource("12_guj35")
 autoplay = true
 
 [node name="UI" type="Control" parent="."]
@@ -321,26 +327,26 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="UI"]
-modulate = Color(0.536804, 0.191555, 0.017827, 1)
+modulate = Color(0.266531, 0.0789742, 0.0041437, 1)
 layout_mode = 0
-offset_left = 14.0
-offset_top = 6.0
-offset_right = 424.0
-offset_bottom = 146.0
-text = "Afternoon Leafblowing
-Art by Patrick Rall
-Code by Sarah Asano
-Music by Kevin MacLeod
-Sound Effect by Martsfx,  DRAGON-STUDIO from Pixabay"
+offset_left = 895.0
+offset_top = 39.0
+offset_right = 1442.0
+offset_bottom = 218.0
+text = "Art by Patrick Rall
+Code + Interfaces by Sarah Asano
+Sound Effects + Music by Chris Cousté
+Misc Sound Effects by Martsfx,  DRAGON-STUDIO from Pixabay"
 
 [node name="Control" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="Control"]
-self_modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0.301067, 0.111316, 0, 1)
 offset_left = 555.0
 offset_top = 9.0
 offset_right = 679.0
 offset_bottom = 58.0
+size_flags_vertical = 0
 text = "#/10 piles raked
 #/3 items found"
 

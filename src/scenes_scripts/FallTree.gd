@@ -2,7 +2,6 @@ extends Sprite2D
 
 var leaf_level = 0
 @onready var pile_parent = $PileParent
-var collected = false
 
 @export var trees_tres: Array[AtlasTexture] = [
 	load("res://assets/tree1.tres"),
@@ -51,13 +50,10 @@ func _on_leaf_piling_timer_timeout() -> void:
 	update_pile()
 
 func update_pile():
-	#if leaf_level < pile_parent.get_child_count(): 
-		#pile_parent.get_child(leaf_level).show()
 	$LeafPileStaticBody2D.position = Vector2(0, 124.0) if leaf_level else Vector2(0, 1000)
 	for child in pile_parent.get_children():
 		child.visible = child.get_index() < leaf_level
 
 func collect():
-	collected = true
 	leaf_level = 0
 	update_pile()

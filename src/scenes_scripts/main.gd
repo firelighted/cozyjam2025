@@ -8,3 +8,4 @@ extends Node
 #var trees 
 #func _ready() -> void:
 	#trees = get_node(treeparent_path).get_children()
+ 

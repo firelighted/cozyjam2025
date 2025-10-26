@@ -46,7 +46,8 @@ func found_lost_item():
 	var message = "You found a lost %s!" % item_names[randi() % item_names.size()]
 	special_items_found += 1
 	if special_items_found == special_items_total:
-		message += " Thank you, kind soul! The possessions you found have been returned to their rightful owners in the Brookline Middle second grade class"
+		message += "
+		Thank you, kind soul! The possessions you found have been returned to their rightful owners in the Brookline Middle second grade class"
 	$speech/Label.text = message
 	$speech/HideSpeechTimer.start()
 	
@@ -68,7 +69,7 @@ func _physics_process(_delta):
 
 func sprite_blower_update(direction_topdown: Vector2):
 	var direction = round(direction_topdown.x)
-	footstep_audio.stream_paused = (direction != 0)
+	footstep_audio.stream_paused = (direction == 0)
 	if direction != 0:
 		leafblow.orbit_velocity_max = direction + 1
 		leafblow.orbit_velocity_min = direction

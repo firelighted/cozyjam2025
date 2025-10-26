@@ -40,22 +40,23 @@ color_initial_ramp = SubResource("Gradient_ne0no")
 position = Vector2(62, 151)
 
 [node name="Sprite0" type="Sprite2D" parent="PileParent"]
+position = Vector2(-20, 34)
 texture = ExtResource("2_puh36")
 
 [node name="Sprite1" type="Sprite2D" parent="PileParent"]
-position = Vector2(-60, 6)
+position = Vector2(-80, 40)
 texture = ExtResource("5_w53m2")
 
 [node name="Sprite2D" type="Sprite2D" parent="PileParent"]
-position = Vector2(-41, -46)
+position = Vector2(-61, -12)
 texture = ExtResource("6_pd3t2")
 
 [node name="Sprite3" type="Sprite2D" parent="PileParent"]
-position = Vector2(12, -32)
+position = Vector2(-8, 2)
 texture = ExtResource("7_r0rwh")
 
 [node name="Sprite4" type="Sprite2D" parent="PileParent"]
-position = Vector2(-84, -24)
+position = Vector2(-104, 10)
 texture = ExtResource("8_x7jtb")
 
 [node name="LeafPileStaticBody2D" type="StaticBody2D" parent="."]

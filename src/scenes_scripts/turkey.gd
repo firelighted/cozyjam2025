@@ -33,7 +33,7 @@ func _ready() -> void:
 func _on_turkey_area_entered(area: Area2D) -> void:
 	make_sfx(area.position.x - position.x)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	velocity = direction * SPEED
 	move_and_slide()
 	$Sprite2D.flip_h = (direction.x > 0)
@@ -50,7 +50,7 @@ func make_sfx(x_pos):
 	if x_pos > 20:
 		sound = turkey_sound_left[randi() % turkey_sound_left.size()]
 	elif x_pos < -20:
-		sound = turkey_sound_left[randi() % turkey_sound_right.size()]
+		sound = turkey_sound_right[randi() % turkey_sound_right.size()]
 	else:
 		sound = turkey_sound_middle[randi() % turkey_sound_middle.size()]
 	$SFX.stream = sound

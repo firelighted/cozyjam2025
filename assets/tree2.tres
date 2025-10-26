@@ -4,4 +4,4 @@
 
 [resource]
 atlas = ExtResource("1_jhdpi")
-region = Rect2(1135, 785.197, 269.06, 345.228)
+region = Rect2(1135, 785, 269, 335)
