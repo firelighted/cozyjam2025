@@ -147,10 +147,10 @@ position = Vector2(502, 434)
 position = Vector2(132, 434)
 
 [node name="Tree4" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(1002, 434)
+position = Vector2(865, 449)
 
 [node name="Tree6" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(1168, 433)
+position = Vector2(1372, 442)
 
 [node name="Tree7" parent="TreeParent" instance=ExtResource("3_1dgxd")]
 position = Vector2(1553, 432)
@@ -165,10 +165,10 @@ position = Vector2(3038, 430)
 position = Vector2(2099, 433)
 
 [node name="Tree12" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(2301, 439)
+position = Vector2(2202, 439)
 
 [node name="Tree14" parent="TreeParent" instance=ExtResource("3_1dgxd")]
-position = Vector2(2532, 436)
+position = Vector2(2647, 440)
 
 [node name="TreeParent2" type="Node2D" parent="."]
 position = Vector2(-9, -36)

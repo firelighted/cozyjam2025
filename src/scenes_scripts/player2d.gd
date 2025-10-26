@@ -22,10 +22,10 @@ var piles_found = 0
 var special_items_found = 0
 const special_items_total = 3
 const item_names = [
-	"purple fleece hat", "red glove", "pale orange beanie",  "toy horse",
+	"purple fleece hat", "hand-knitted maroon glove", "pale orange beanie",  "toy horse",
 	"handmade wool scarf", "bright yellow mittens", "Red Sox baseball cap", 
 	"fuzzy green beanie", "pair of Pikachu slippers", "Bluey-themed analog watch", 
-	"Qatar world cup soccer ball", 
+	"Qatar world cup soccer ball", "child-sized guitar pick",
 	"pink hydroflask covered in Hello Kitty stickers", "ceramic mushroom mug"
 ]
 
@@ -70,18 +70,21 @@ func sprite_blower_update(direction_topdown: Vector2):
 	var direction = round(direction_topdown.x)
 	footstep_audio.stream_paused = (direction == 0)
 	if direction != 0:
-		leafblow.orbit_velocity_max = direction + 1
-		leafblow.orbit_velocity_min = direction
+		leafblow.orbit_velocity_max = direction * .7 + 1
+		leafblow.orbit_velocity_min = direction * .7
 		leafblow.direction.x = direction
-		leafblow.position = position + Vector2(64 * direction, 0)
+		leafblow.position = position + Vector2(64 * direction, 32)
 		$CharSprite.scale = Vector2(direction, 1)
 
 
 func _on_player_detect_body_entered(body: Node2D) -> void:
 	print("collectible found")
 	piles_found += 1
+	var win_message = "You found everything you needed to! You can keep going if you like." if special_items_found > special_items_total else ""
 	hud_label.text = "%d piles cleared
-	%d/%d items found" % [piles_found, special_items_found, special_items_total]
+	%d/%d items found
+	%s" % [piles_found, special_items_found, special_items_total, win_message]
+	
 	body.get_parent().collect()
 	leafblow.amount = MAX_LEAVES_BLOWN
 	#pile_audio.play()

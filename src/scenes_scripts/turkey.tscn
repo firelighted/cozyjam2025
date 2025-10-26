@@ -13,6 +13,7 @@ radius = 42.0119
 script = ExtResource("1_ov6gb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
 texture = ExtResource("2_3e1ks")
 
 [node name="Timer" type="Timer" parent="."]
