@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://c4hph8pvvd547"]
+[gd_scene load_steps=29 format=3 uid="uid://c4hph8pvvd547"]
 
 [ext_resource type="Script" uid="uid://cqhx7autm2quy" path="res://src/scenes_scripts/main.gd" id="1_8bppn"]
 [ext_resource type="Script" uid="uid://cl1n471ie3nkm" path="res://src/scenes_scripts/player2d.gd" id="1_cydo6"]
@@ -14,6 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://434ywjrwh1n4" path="res://assets/sfx/coin_low.wav" id="10_guj35"]
 [ext_resource type="PackedScene" uid="uid://d1noiansgr6sn" path="res://src/scenes_scripts/turkey.tscn" id="11_wjbgh"]
 [ext_resource type="AudioStream" uid="uid://d2s0slh77yjp4" path="res://assets/cozy-background-fast.mp3" id="12_guj35"]
+[ext_resource type="Script" uid="uid://df7nwg37dsoop" path="res://src/scenes_scripts/settings.gd" id="14_5wt8t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ne0no"]
 size = Vector2(3587.75, 71.5)
@@ -108,12 +109,10 @@ position = Vector2(3284, -70)
 shape = SubResource("RectangleShape2D_73g7s")
 
 [node name="Background" type="Sprite2D" parent="Background"]
-position = Vector2(0, 1)
 texture = ExtResource("1_rvmg3")
 offset = Vector2(1600, 100)
 
 [node name="Background2" type="Sprite2D" parent="Background"]
-position = Vector2(0, 1)
 texture = ExtResource("3_d8l4k")
 offset = Vector2(1600, 100)
 
@@ -213,8 +212,13 @@ position = Vector2(2306, 628)
 z_index = 200
 position = Vector2(2535, 633)
 
+[node name="BackgroundAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_guj35")
+volume_db = 5.0
+autoplay = true
+
 [node name="LeafblowParticles" parent="." instance=ExtResource("4_agtjx")]
-position = Vector2(922, 726)
+position = Vector2(914, 720)
 amount = 24
 texture = ExtResource("5_1dgxd")
 lifetime = 3.0
@@ -267,7 +271,7 @@ position = Vector2(144, 0)
 limit_left = 0
 limit_top = 0
 limit_right = 3200
-limit_bottom = 769
+limit_bottom = 770
 position_smoothing_enabled = true
 editor_draw_limits = true
 
@@ -320,10 +324,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="BackgroundAudio" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("12_guj35")
-autoplay = true
-
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -343,21 +343,29 @@ Sound Effects + Music by Chris Cousté
 Misc Sound Effects by Martsfx,  DRAGON-STUDIO from Pixabay"
 
 [node name="Control" type="CanvasLayer" parent="."]
+script = ExtResource("14_5wt8t")
 
 [node name="Label" type="Label" parent="Control"]
 self_modulate = Color(0.301067, 0.111316, 0, 1)
-offset_left = 555.0
-offset_top = 9.0
-offset_right = 679.0
-offset_bottom = 58.0
+offset_left = 33.0
+offset_top = 37.0
+offset_right = 157.0
+offset_bottom = 86.0
 size_flags_vertical = 0
 text = "#/10 piles raked
 #/3 items found"
 
-[node name="Button" type="Button" parent="Control"]
+[node name="MusicButton" type="Button" parent="Control"]
 offset_left = 19.0
 offset_right = 27.0
 offset_bottom = 8.0
+text = "Music On/Off"
+
+[node name="SFXButton" type="Button" parent="Control"]
+offset_left = 146.0
+offset_right = 257.0
+offset_bottom = 31.0
+text = "Sound Effects On/Off"
 
 [node name="Turkey" parent="." instance=ExtResource("11_wjbgh")]
 position = Vector2(739, 617)
@@ -374,3 +382,5 @@ position = Vector2(394, 603)
 [connection signal="body_entered" from="CharacterBody2D/PlayerDetect" to="CharacterBody2D" method="_on_player_detect_body_entered"]
 [connection signal="timeout" from="CharacterBody2D/FinishPileTimer" to="CharacterBody2D" method="_on_finish_pile_timer_timeout"]
 [connection signal="timeout" from="CharacterBody2D/speech/HideSpeechTimer" to="CharacterBody2D" method="_on_hide_speech_timer_timeout"]
+[connection signal="pressed" from="Control/MusicButton" to="Control" method="_on_music_button_pressed"]
+[connection signal="pressed" from="Control/SFXButton" to="Control" method="_on_sfx_button_pressed"]

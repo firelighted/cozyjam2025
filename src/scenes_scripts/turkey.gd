@@ -3,6 +3,7 @@ extends CharacterBody2D
 var direction = Vector2i(1,1)
 
 const SPEED = 25
+@export var settings_path: NodePath = "../Control"
 
 @export var turkey_sound_left : Array[AudioStream]= [
 	preload("res://assets/sfx/turkey-concerned-left.mp3"),
@@ -23,6 +24,9 @@ const SPEED = 25
 ]
 
 var sound : AudioStream
+
+func get_is_SFX():
+	return get_node(settings_path).isSFX
 
 func _ready() -> void:
 	randomize()
@@ -45,7 +49,7 @@ func change_direction():
 	direction = Vector2i((randi() % 3) - 1, (randi() % 3) - 1)
 
 func make_sfx(x_pos):
-	if $SFX.playing:
+	if $SFX.playing or !get_is_SFX():
 		return
 	if x_pos > 20:
 		sound = turkey_sound_left[randi() % turkey_sound_left.size()]
