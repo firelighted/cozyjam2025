@@ -37,6 +37,7 @@ func _ready() -> void:
 	pile_audio = get_node(pile_audio_path) 
 	$speech.hide()
 	$FootstepAudio.play()
+	sprite_blower_update(Vector2(1, 0))
 
 
 func found_lost_item(): 
@@ -63,16 +64,18 @@ func _physics_process(_delta):
 		$AnimationPlayer.play("jump")
 	
 	move_and_slide()
-	
+	sprite_blower_update(direction_topdown)
+
+func sprite_blower_update(direction_topdown: Vector2):
 	var direction = round(direction_topdown.x)
-	
-	leafblow.orbit_velocity_max = direction + 1
-	leafblow.orbit_velocity_min = direction
-	leafblow.direction.x = direction
-	footstep_audio.stream_paused = (direction_topdown.length_squared() == 0)
-	leafblow.position = position + Vector2(32 * direction, -32)
+	footstep_audio.stream_paused = (direction != 0)
 	if direction != 0:
+		leafblow.orbit_velocity_max = direction + 1
+		leafblow.orbit_velocity_min = direction
+		leafblow.direction.x = direction
+		leafblow.position = position + Vector2(32 * direction, -32)
 		$CharSprite.scale = Vector2(direction, 1)
+	
 
 
 func _on_player_detect_body_entered(body: Node2D) -> void:
@@ -91,11 +94,6 @@ func _on_finish_pile_timer_timeout() -> void:
 	#if leafblow.amount > MIN_LEAVES_BLOWN:
 	#	leafblow.amount -= 10
 	pass
-
-
-func _on_turkey_detect_area_entered(area: Area2D) -> void:
-	$TurkeySFX.play()
-
 
 func _on_hide_speech_timer_timeout() -> void:
 	$speech.hide()

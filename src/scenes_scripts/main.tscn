@@ -90,7 +90,7 @@ position = Vector2(0, 700)
 [node name="GroundStaticBody2D" type="StaticBody2D" parent="Background"]
 
 [node name="GroundCollisionShape2D" type="CollisionShape2D" parent="Background/GroundStaticBody2D"]
-position = Vector2(1603, 106)
+position = Vector2(1601, 65)
 shape = SubResource("RectangleShape2D_ne0no")
 
 [node name="GroundCollisionShape2D2" type="CollisionShape2D" parent="Background/GroundStaticBody2D"]
@@ -271,10 +271,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_73g7s")
 }
 
-[node name="TurkeySFX" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
-position = Vector2(-174, 111)
-stream = ExtResource("6_8ksqs")
-
 [node name="LostItemSFX" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
 position = Vector2(-174, 111)
 stream = ExtResource("6_8ksqs")
@@ -362,5 +358,4 @@ position = Vector2(394, 603)
 
 [connection signal="body_entered" from="CharacterBody2D/PlayerDetect" to="CharacterBody2D" method="_on_player_detect_body_entered"]
 [connection signal="timeout" from="CharacterBody2D/FinishPileTimer" to="CharacterBody2D" method="_on_finish_pile_timer_timeout"]
-[connection signal="area_entered" from="CharacterBody2D/TurkeyDetect" to="CharacterBody2D" method="_on_turkey_detect_area_entered"]
 [connection signal="timeout" from="CharacterBody2D/speech/HideSpeechTimer" to="CharacterBody2D" method="_on_hide_speech_timer_timeout"]
