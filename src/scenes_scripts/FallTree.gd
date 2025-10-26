@@ -45,8 +45,11 @@ func _ready() -> void:
 		child.texture = piles_tres[randi_range(0, piles_tres.size()-1)]
 	update_pile()
 
+
 func _on_leaf_piling_timer_timeout() -> void:
 	leaf_level += 1
+	fading_node = pile_parent.get_child(leaf_level % pile_parent.get_child_count())
+	fade_increment = 0
 	update_pile()
 
 func update_pile():
@@ -57,3 +60,16 @@ func update_pile():
 func collect():
 	leaf_level = 0
 	update_pile()
+
+var fade_increment = 1
+var fading_node : Node
+
+func fade_in(node: Sprite2D, increment, total_increments):
+	if is_instance_valid(node):
+		node.self_modulate = lerp(Color.TRANSPARENT, Color.WHITE, increment/total_increments)
+	
+
+func _on_leaf_fade_in_timer_timeout() -> void:
+	if fade_increment < 1:
+		fade_increment += 1
+		fade_in(fading_node, fade_increment, 10)

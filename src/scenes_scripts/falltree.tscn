@@ -13,8 +13,8 @@
 offsets = PackedFloat32Array(0, 0.886667, 1)
 colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_agtjx"]
-size = Vector2(130, 104.75)
+[sub_resource type="CircleShape2D" id="CircleShape2D_r0rwh"]
+radius = 64.0703
 
 [node name="FallTree" type="Sprite2D"]
 y_sort_enabled = true
@@ -65,10 +65,15 @@ collision_layer = 2
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeafPileStaticBody2D"]
-shape = SubResource("RectangleShape2D_agtjx")
+position = Vector2(0, 43)
+shape = SubResource("CircleShape2D_r0rwh")
 
 [node name="LeafPilingTimer" type="Timer" parent="."]
 wait_time = 2.0
 autostart = true
 
+[node name="LeafFadeInTimer" type="Timer" parent="."]
+wait_time = 0.1
+
 [connection signal="timeout" from="LeafPilingTimer" to="." method="_on_leaf_piling_timer_timeout"]
+[connection signal="timeout" from="LeafFadeInTimer" to="." method="_on_leaf_fade_in_timer_timeout"]
