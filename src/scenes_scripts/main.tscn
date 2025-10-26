@@ -118,11 +118,13 @@ texture = ExtResource("1_rvmg3")
 offset = Vector2(1600, 100)
 
 [node name="Sidwalk" type="Sprite2D" parent="Background"]
+visible = false
 position = Vector2(1561.25, 208.419)
 scale = Vector2(50.7266, 7.19102)
 texture = SubResource("GradientTexture2D_rvmg3")
 
 [node name="RoadSprite3" type="Sprite2D" parent="Background"]
+visible = false
 position = Vector2(1533, -199.694)
 scale = Vector2(45.4023, 0.32207)
 texture = SubResource("GradientTexture2D_rvmg3")
@@ -262,7 +264,7 @@ shape = SubResource("CircleShape2D_rvmg3")
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 position = Vector2(144, 0)
 limit_left = 0
-limit_top = -170
+limit_top = 0
 limit_right = 3200
 limit_bottom = 725
 position_smoothing_enabled = true
@@ -349,6 +351,11 @@ offset_bottom = 58.0
 size_flags_vertical = 0
 text = "#/10 piles raked
 #/3 items found"
+
+[node name="Button" type="Button" parent="Control"]
+offset_left = 19.0
+offset_right = 27.0
+offset_bottom = 8.0
 
 [node name="Turkey" parent="." instance=ExtResource("11_wjbgh")]
 position = Vector2(739, 617)

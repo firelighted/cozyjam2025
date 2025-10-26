@@ -63,7 +63,6 @@ func _physics_process(_delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		#$CharSprite.position.y += JUMP_VELOCITY * delta
 		$AnimationPlayer.play("jump")
-	
 	move_and_slide()
 	sprite_blower_update(direction_topdown)
 
@@ -74,9 +73,8 @@ func sprite_blower_update(direction_topdown: Vector2):
 		leafblow.orbit_velocity_max = direction + 1
 		leafblow.orbit_velocity_min = direction
 		leafblow.direction.x = direction
-		leafblow.position = position + Vector2(32 * direction, -32)
+		leafblow.position = position + Vector2(64 * direction, 0)
 		$CharSprite.scale = Vector2(direction, 1)
-	
 
 
 func _on_player_detect_body_entered(body: Node2D) -> void:
@@ -86,7 +84,7 @@ func _on_player_detect_body_entered(body: Node2D) -> void:
 	%d/%d items found" % [piles_found, special_items_found, special_items_total]
 	body.get_parent().collect()
 	leafblow.amount = MAX_LEAVES_BLOWN
-	pile_audio.play()
+	#pile_audio.play()
 	if randf() < 0.1:
 		found_lost_item()
 
